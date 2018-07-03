@@ -1,0 +1,29 @@
+<?xml version="." encoding="UTF-"?>
+<NABTransactMessage>
+    <MessageInfo>
+        <messageID>8af793f9af34bea0ecd7eff711c9d3</messageID>
+        <messageTimestamp>20140710015921142000+600</messageTimestamp>
+        <timeoutValue>60</timeoutValue>
+        <apiVersion>spxml-3.0</apiVersion>
+    </MessageInfo>
+    <MerchantInfo>
+        <merchantID>XYZ00</merchantID>
+        <password>abcd1234</password>
+    </MerchantInfo>
+    <RequestType>Periodic</RequestType>
+    <Periodic>
+        <PeriodicList count="1">
+            <PeriodicItem ID="1">
+                <actionType>trigger</actionType>
+                <periodicType>8</periodicType>
+                <crn>1234123412341234</crn>
+                <transactionReference>Test Trigger CC Payment</transactionReference>
+                <amount>100</amount>
+                <currency>AUD</currency>
+                <CreditCardInfo>
+                    <recurringFlag>no</recurringFlag>
+                </CreditCardInfo>
+            </PeriodicItem>
+        </PeriodicList>
+    </Periodic>
+</NABTransactMessage>

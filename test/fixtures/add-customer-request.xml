@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NABTransactMessage>
+    <MessageInfo>
+        <messageID>8af793f9af34bea0cf40f5fb5c630c</messageID>
+        <messageTimestamp>20100101161306527000+660</messageTimestamp>
+        <timeoutValue>60</timeoutValue>
+        <apiVersion>spxml-3.0</apiVersion>
+    </MessageInfo>
+    <MerchantInfo>
+        <merchantID>XYZ0010</merchantID>
+        <password>abcd1234</password>
+    </MerchantInfo>
+    <RequestType>Periodic</RequestType>
+    <Periodic>
+        <PeriodicList count="1">
+            <PeriodicItem ID="1">
+                <actionType>addcrn</actionType>
+                <periodicType>5</periodicType>
+                <crn>test</crn>
+                <allocatedVariable>14233</allocatedVariable>
+                <CreditCardInfo>
+                    <cardNumber>4444333322221111</cardNumber>
+                    <expiryDate>09/15</expiryDate>
+                </CreditCardInfo>
+                <DirectEntryInfo>
+                    <bsbNumber>080000</bsbNumber>
+                    <accountNumber>999999999</accountNumber>
+                    <accountName>Joe Citizen</accountName>
+                </DirectEntryInfo>
+            </PeriodicItem>
+        </PeriodicList>
+    </Periodic>
+</NABTransactMessage>

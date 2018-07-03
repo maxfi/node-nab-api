@@ -1,0 +1,75 @@
+{
+  "name": "node-nab-api",
+  "version": "0.1.0",
+  "description": "NAB payment gateway API wrapper for node.js",
+  "author": "Max",
+  "license": "UNLICENSED",
+  "repository": "maxfi/node-nab-api",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "files": [
+    "dist/"
+  ],
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "lint": "xo --fix",
+    "flow": "flow",
+    "test": "npm run lint && npm run flow && BABEL_ENV=development ava",
+    "build": "BABEL_ENV=production rollup -c",
+    "precommit": "lint-staged && npm run build && git add dist/*"
+  },
+  "xo": {
+    "prettier": true,
+    "semicolon": false,
+    "space": 2
+  },
+  "prettier": {
+    "bracketSpacing": true,
+    "trailingComma": "es5"
+  },
+  "lint-staged": {
+    "{src,test}/**/*.js": [
+      "npm run lint",
+      "git add"
+    ]
+  },
+  "ava": {
+    "files": [
+      "test/**/*.js"
+    ],
+    "source": [
+      "src/**/*.js"
+    ],
+    "require": [
+      "@babel/register"
+    ]
+  },
+  "dependencies": {
+    "@babel/runtime": "7.0.0-beta.51",
+    "is-plain-object": "^2.0.4",
+    "node-fetch": "^2.1.2",
+    "xml-js": "^1.5.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.51",
+    "@babel/core": "^7.0.0-beta.51",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.51",
+    "@babel/plugin-transform-runtime": "^7.0.0-beta.51",
+    "@babel/preset-env": "^7.0.0-beta.51",
+    "@babel/preset-flow": "^7.0.0-beta.51",
+    "@babel/register": "^7.0.0-beta.51",
+    "ava": "^0.25.0",
+    "eslint-config-prettier": "^2.8.0",
+    "flow-bin": "^0.75.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.2.0",
+    "pify": "^3.0.0",
+    "prettier": "^1.13.7",
+    "rollup": "^0.62.0",
+    "rollup-plugin-babel": "^4.0.0-beta.7",
+    "xo": "^0.21.1"
+  }
+}
