@@ -4,6 +4,18 @@
 
 NAB payment gateway API wrapper for node.js
 
+## Usage
+
+```js
+import NAB from 'node-nab-api'
+
+const merchantId = process.env.NAB_MERCHANT_ID
+const password = process.env.NAB_PASSWORD
+const testMode = process.env.NAB_MODE !== 'PRODUCTION'
+
+const nab = new NAB({ merchantId, password }, { testMode })
+```
+
 ## Classes
 
 <dl>
@@ -11,7 +23,7 @@ NAB payment gateway API wrapper for node.js
 <dd></dd>
 </dl>
 
-## Functions
+## Methods
 
 <dl>
 <dt><a href="#addToken">addToken(messageId, tokenDetails)</a> ⇒ <code>Promise</code></dt>
@@ -27,11 +39,24 @@ NAB payment gateway API wrapper for node.js
 <a name="NAB"></a>
 
 ## NAB
-**Kind**: global class  
+**Kind**: class
+
+## new NAB(config, [options])
+Creates an instance of the NAB class.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| config | <code>Object</code> | Config. |
+| config.merchantId | <code>String</code> | 5 character merchant ID supplied by NAB Transact. |
+| config.password | <code>String</code> | Transaction password. Password used for authentication of the merchant's request message, supplied by NAB Transact. |
+| [options] | <code>Object</code> | Options. |
+| options.testMode | <code>Boolean</code> | Set to `true` to direct requests to the NAB payment gateway test environment. |
+| options.timeout | <code>String</code> | Timeout value used, in seconds. |
+
 <a name="addToken"></a>
 
 ## addToken(messageId, tokenDetails) ⇒ <code>Promise</code>
-**Kind**: global function  
+**Kind**: instance method of [<code>NAB</code>](#NAB)
 **Summary**: Add a new token  
 **Returns**: <code>Promise</code> - {MessageInfo, RequestType, MerchantInfo, Status, Data}  
 
@@ -80,7 +105,7 @@ const result = {
 <a name="lookupToken"></a>
 
 ## lookupToken(messageId, tokenValue) ⇒ <code>Promise</code>
-**Kind**: global function  
+**Kind**: instance method of [<code>NAB</code>](#NAB)
 **Returns**: <code>Promise</code> - {MessageInfo, RequestType, MerchantInfo, Status, Data}  
 
 | Param | Type | Description |
@@ -120,7 +145,7 @@ const result = {
 <a name="deleteToken"></a>
 
 ## deleteToken(messageId, tokenValue) ⇒ <code>Promise</code>
-**Kind**: global function  
+**Kind**: instance method of [<code>NAB</code>](#NAB)
 **Returns**: <code>Promise</code> - {MessageInfo, RequestType, MerchantInfo, Status, Data}  
 
 | Param | Type | Description |
@@ -158,18 +183,18 @@ const result = {
 
 <a name="triggerPayment"></a>
 
-## triggerPayment(messageId, paymentDetails) ⇒ <code>Promise</code>
-**Kind**: global function  
+#### module.exports.triggerPayment(messageId, paymentDetails) ⇒ <code>Promise</code>
+**Kind**: instance method of [<code>NAB</code>](#NAB)
 **Returns**: <code>Promise</code> - {MessageInfo, RequestType, MerchantInfo, Status, Data}  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | messageId | <code>String</code> | The `messageId` is a reference for the xml request. If you had a server internally you could store all your xml request and this would be a way to locate the request if a payment was to fail. A request will still be sent if they have the same `messageId` and will be treated as a new xml request. |
-| paymentDetails | <code>Object</code> | {timeout, testMode} |
-| paymentDetails.clientID | <code>String</code> | Unique identifier of payor or token. |
+| paymentDetails | <code>Object</code> | Payment Details |
+| paymentDetails.crn | <code>String</code> | Unique identifier of customer or token. |
 | paymentDetails.currency | <code>String</code> | Default currency is "AUD" – Australian Dollars. |
 | paymentDetails.amount | <code>String</code> | Transaction amount in cents. |
-| paymentDetails.tokenDetails.transactionReference | <code>String</code> | The transaction identifier. This value will appear against all processed transactions. Typically an invoice number. E.g. "invoice12345". If absent the Token value will be used. |
+| paymentDetails.transactionReference | <code>String</code> | The transaction identifier. This value will appear against all processed transactions. Typically an invoice number. E.g. "invoice12345". |
 
 Example response:
 

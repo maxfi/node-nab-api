@@ -3,6 +3,11 @@ import fetch from 'node-fetch'
 import getMessageContainer from './util/get-message-container'
 import getResponse from './util/get-response'
 
+/**
+ * NAB payment gateway API wrapper for node.js
+ * @module node-nab-api
+ */
+
 const toXml = x => js2xml(x, { spaces: 4, compact: true })
 const fromXml = x => xml2js(x, { compact: true })
 
@@ -141,11 +146,11 @@ export default class NAB {
 
   /**
    * @param {String} messageId The `messageId` is a reference for the xml request. If you had a server internally you could store all your xml request and this would be a way to locate the request if a payment was to fail. A request will still be sent if they have the same `messageId` and will be treated as a new xml request.
-   * @param {Object} paymentDetails {timeout, testMode}
-   * @param {String} paymentDetails.clientID Unique identifier of payor or token.
+   * @param {Object} paymentDetails Payment Details
+   * @param {String} paymentDetails.crn Unique identifier of customer or token.
    * @param {String} paymentDetails.currency Default currency is "AUD" – Australian Dollars.
    * @param {String} paymentDetails.amount Transaction amount in cents.
-   * @param {String} paymentDetails.tokenDetails.transactionReference The transaction identifier. This value will appear against all processed transactions. Typically an invoice number. E.g. "invoice12345". If absent the Token value will be used.
+   * @param {String} paymentDetails.transactionReference The transaction identifier. This value will appear against all processed transactions. Typically an invoice number. E.g. "invoice12345".
    * @returns {Promise} {MessageInfo, RequestType, MerchantInfo, Status, Data}
    */
   triggerPayment(messageId, paymentDetails) {
