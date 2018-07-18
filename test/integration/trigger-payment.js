@@ -1,5 +1,6 @@
 import test from 'ava'
 import NAB from '../../src'
+import isIsoDateString from '../helpers/is-iso-date-string'
 
 // NOTE: API returns duplicate XML envelopes in response.
 // Although technically a bad response it doesn't create
@@ -23,8 +24,8 @@ test('NAB.triggerPayment - success', async t => {
   })
 
   // Check variations
-  t.regex(result.MessageInfo.messageTimestamp, /^\d{20}\+\d{3}$/)
-  result.MessageInfo.messageTimestamp = '20172211193559912000+660'
+  t.true(isIsoDateString(result.MessageInfo.messageTimestamp))
+  result.MessageInfo.messageTimestamp = '2018-07-03T06:59:16.539Z'
   t.regex(result.Data.txnID, /^\d+$/)
   result.Data.txnID = '815056'
   t.regex(result.Data.settlementDate, /^\d{8}$/)
@@ -33,7 +34,7 @@ test('NAB.triggerPayment - success', async t => {
   const expected = {
     MessageInfo: {
       messageID: '123456789',
-      messageTimestamp: '20172211193559912000+660',
+      messageTimestamp: '2018-07-03T06:59:16.539Z',
       apiVersion: 'spxml-3.0',
     },
     RequestType: 'Periodic',
@@ -81,8 +82,8 @@ test('NAB.triggerPayment - failure', async t => {
   })
 
   // Check variations
-  t.regex(result.MessageInfo.messageTimestamp, /^\d{20}\+\d{3}$/)
-  result.MessageInfo.messageTimestamp = '20172211193559912000+660'
+  t.true(isIsoDateString(result.MessageInfo.messageTimestamp))
+  result.MessageInfo.messageTimestamp = '2018-07-03T06:59:16.539Z'
   t.regex(result.Data.txnID, /^\d+$/)
   result.Data.txnID = '815056'
   t.regex(result.Data.settlementDate, /^\d{8}$/)
@@ -91,7 +92,7 @@ test('NAB.triggerPayment - failure', async t => {
   const expected = {
     MessageInfo: {
       messageID: '123456789',
-      messageTimestamp: '20172211193559912000+660',
+      messageTimestamp: '2018-07-03T06:59:16.539Z',
       apiVersion: 'spxml-3.0',
     },
     RequestType: 'Periodic',

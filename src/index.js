@@ -2,6 +2,7 @@ import { js2xml, xml2js } from 'xml-js'
 import fetch from 'node-fetch'
 import getMessageContainer from './util/get-message-container'
 import getResponse from './util/get-response'
+import { normaliseDateString } from './util/normalise-date-string'
 
 /**
  * NAB payment gateway API wrapper for node.js
@@ -153,7 +154,7 @@ export default class NAB {
    * @param {String} paymentDetails.transactionReference The transaction identifier. This value will appear against all processed transactions. Typically an invoice number. E.g. "invoice12345".
    * @returns {Promise} {MessageInfo, RequestType, MerchantInfo, Status, Data}
    */
-  triggerPayment(messageId, paymentDetails) {
+  async triggerPayment(messageId, paymentDetails) {
     const payload = getMessageContainer({
       messageId,
       credentials: this._getCredentials(),
@@ -166,6 +167,19 @@ export default class NAB {
         periodicType: '8',
       },
     })
-    return this._post('periodic', payload)
+    const response = await this._post('periodic', payload)
+
+    /**
+     * The test API returns inconsistently formatted timestamps.
+     * The token CRUD endpoints return an ISO 8601 formatted `messageTimestamp`,
+     * for example: `2018-07-18T10:27:38.738Z`.
+     * The trigger payment endpoint, however, returns a non ISO formatted
+     * `messageTimestamp`, for example: `20181807202744603000+600`.
+     * Unfortunately the NAB transact documentation is inconsistent here again.
+     */
+    response.MessageInfo.messageTimestamp = normaliseDateString(
+      response.MessageInfo.messageTimestamp
+    )
+    return response
   }
 }

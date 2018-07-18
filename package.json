@@ -50,6 +50,7 @@
   "dependencies": {
     "@babel/runtime": "7.0.0-beta.51",
     "is-plain-object": "^2.0.4",
+    "moment": "^2.22.2",
     "node-fetch": "^2.1.2",
     "xml-js": "^1.5.2"
   },
