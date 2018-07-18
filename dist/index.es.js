@@ -2,6 +2,10 @@ import _slicedToArray from '@babel/runtime/helpers/slicedToArray';
 import _Object$entries from '@babel/runtime/core-js/object/entries';
 import isPlainObject from 'is-plain-object';
 import _Object$assign from '@babel/runtime/core-js/object/assign';
+import 'core-js/modules/es6.regexp.to-string';
+import 'core-js/modules/es6.regexp.split';
+import moment from 'moment';
+import 'core-js/modules/es7.array.includes';
 import _objectSpread from '@babel/runtime/helpers/objectSpread';
 import _classCallCheck from '@babel/runtime/helpers/classCallCheck';
 import _createClass from '@babel/runtime/helpers/createClass';
@@ -101,6 +105,28 @@ var getResponse = (function (x) {
   if (!isPlainObject(x)) throw new Error('Requires a plain object');
   return convert$1(x);
 });
+
+var pad = function pad(s) {
+  return s.length === 1 ? '0' + s : s;
+};
+
+var normaliseDateString = function normaliseDateString(s) {
+  var _s$split = s.split('000+'),
+      _s$split2 = _slicedToArray(_s$split, 2),
+      d = _s$split2[0],
+      o = _s$split2[1];
+
+  var offsetMins = parseInt(o, 10);
+  var hours = pad(Math.floor(offsetMins / 60).toString());
+  var mins = pad((offsetMins % 60).toString());
+  var fixed = `${d}+${hours}:${mins}`;
+  return moment(fixed, 'YYYYDDMMHHmmssSSSZ').toISOString();
+};
+
+/**
+ * NAB payment gateway API wrapper for node.js
+ * @module node-nab-api
+ */
 
 var toXml = function toXml(x) {
   return js2xml(x, {
@@ -329,31 +355,68 @@ function () {
     }
     /**
      * @param {String} messageId The `messageId` is a reference for the xml request. If you had a server internally you could store all your xml request and this would be a way to locate the request if a payment was to fail. A request will still be sent if they have the same `messageId` and will be treated as a new xml request.
-     * @param {Object} paymentDetails {timeout, testMode}
-     * @param {String} paymentDetails.clientID Unique identifier of payor or token.
+     * @param {Object} paymentDetails Payment Details
+     * @param {String} paymentDetails.crn Unique identifier of customer or token.
      * @param {String} paymentDetails.currency Default currency is "AUD" – Australian Dollars.
      * @param {String} paymentDetails.amount Transaction amount in cents.
-     * @param {String} paymentDetails.tokenDetails.transactionReference The transaction identifier. This value will appear against all processed transactions. Typically an invoice number. E.g. "invoice12345". If absent the Token value will be used.
+     * @param {String} paymentDetails.transactionReference The transaction identifier. This value will appear against all processed transactions. Typically an invoice number. E.g. "invoice12345".
      * @returns {Promise} {MessageInfo, RequestType, MerchantInfo, Status, Data}
      */
 
   }, {
     key: "triggerPayment",
-    value: function triggerPayment(messageId, paymentDetails) {
-      var payload = getMessageContainer({
-        messageId,
-        credentials: this._getCredentials(),
-        requestType: 'Periodic',
-        dataElementName: 'Periodic',
-        payload: _objectSpread({
-          currency: 'AUD'
-        }, paymentDetails, {
-          actionType: 'trigger',
-          periodicType: '8'
-        })
-      });
-      return this._post('periodic', payload);
-    }
+    value: function () {
+      var _triggerPayment = _asyncToGenerator(
+      /*#__PURE__*/
+      _regeneratorRuntime.mark(function _callee3(messageId, paymentDetails) {
+        var payload, response;
+        return _regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                payload = getMessageContainer({
+                  messageId,
+                  credentials: this._getCredentials(),
+                  requestType: 'Periodic',
+                  dataElementName: 'Periodic',
+                  payload: _objectSpread({
+                    currency: 'AUD'
+                  }, paymentDetails, {
+                    actionType: 'trigger',
+                    periodicType: '8'
+                  })
+                });
+                _context3.next = 3;
+                return this._post('periodic', payload);
+
+              case 3:
+                response = _context3.sent;
+
+                /**
+                 * The test API returns inconsistently formatted timestamps.
+                 * The token CRUD endpoints return an ISO 8601 formatted `messageTimestamp`,
+                 * for example: `2018-07-18T10:27:38.738Z`.
+                 * The trigger payment endpoint, however, returns a non ISO formatted
+                 * `messageTimestamp`, for example: `20181807202744603000+600`.
+                 * Unfortunately the NAB transact documentation is inconsistent here again.
+                 */
+                response.MessageInfo.messageTimestamp = normaliseDateString(response.MessageInfo.messageTimestamp); // Reference: XMLAPIIntegrationGuide.pdf - 4.10 Appendix J: NAB Transact Bank Response Codes
+
+                response.Data.isApproved = ['00', '08', '11', '16'].includes(response.Data.responseCode);
+                return _context3.abrupt("return", response);
+
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      return function triggerPayment(_x5, _x6) {
+        return _triggerPayment.apply(this, arguments);
+      };
+    }()
   }]);
 
   return NAB;
