@@ -180,6 +180,12 @@ export default class NAB {
     response.MessageInfo.messageTimestamp = normaliseDateString(
       response.MessageInfo.messageTimestamp
     )
+
+    // Reference: XMLAPIIntegrationGuide.pdf - 4.10 Appendix J: NAB Transact Bank Response Codes
+    response.Data.isApproved = ['00', '08', '11', '16'].includes(
+      response.Data.responseCode
+    )
+
     return response
   }
 }
