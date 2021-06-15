@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`addToken 1`] = `
+Object {
+  "Data": Object {
+    "CreditCardInfo": Object {
+      "cardDescription": "Visa",
+      "cardType": "6",
+      "expiryDate": "01/26",
+      "pan": "421944XXXXXXX125",
+    },
+    "amount": "100",
+    "responseCode": "00",
+    "responseText": "Successful",
+    "successful": "yes",
+    "tokenValue": "3424780602475871",
+    "transactionReference": Object {},
+  },
+  "MerchantInfo": Object {
+    "merchantID": "XYZ0010",
+  },
+  "MessageInfo": Object {
+    "apiVersion": "xml-4.2",
+    "messageID": "123456789",
+    "messageTimestamp": StringMatching /\\^\\\\d\\{4\\}-\\[01\\]\\\\d-\\[0-3\\]\\\\dT\\[0-2\\]\\\\d:\\[0-5\\]\\\\d:\\[0-5\\]\\\\d\\\\\\.\\\\d\\+\\(\\[\\+-\\]\\[0-2\\]\\\\d:\\[0-5\\]\\\\d\\|Z\\)\\$/u,
+  },
+  "RequestType": "Payment",
+  "Status": Object {
+    "statusCode": "0",
+    "statusDescription": "Normal",
+  },
+}
+`;
+
+exports[`deleteToken 1`] = `
+Object {
+  "Data": Object {
+    "CreditCardInfo": Object {
+      "cardDescription": Object {},
+      "cardType": "0",
+      "expiryDate": Object {},
+      "pan": Object {},
+    },
+    "amount": "0",
+    "responseCode": "00",
+    "responseText": "Successful",
+    "successful": "yes",
+    "tokenValue": "5966584544780748",
+    "transactionReference": Object {},
+  },
+  "MerchantInfo": Object {
+    "merchantID": "XYZ0010",
+  },
+  "MessageInfo": Object {
+    "apiVersion": "xml-4.2",
+    "messageID": "123456789",
+    "messageTimestamp": StringMatching /\\^\\\\d\\{4\\}-\\[01\\]\\\\d-\\[0-3\\]\\\\dT\\[0-2\\]\\\\d:\\[0-5\\]\\\\d:\\[0-5\\]\\\\d\\\\\\.\\\\d\\+\\(\\[\\+-\\]\\[0-2\\]\\\\d:\\[0-5\\]\\\\d\\|Z\\)\\$/u,
+  },
+  "RequestType": "Payment",
+  "Status": Object {
+    "statusCode": "0",
+    "statusDescription": "Normal",
+  },
+}
+`;
+
+exports[`deleteToken 2`] = `
+Object {
+  "Data": Object {
+    "CreditCardInfo": Object {
+      "cardDescription": Object {},
+      "cardType": "0",
+      "expiryDate": Object {},
+      "pan": Object {},
+    },
+    "amount": "0",
+    "responseCode": "701",
+    "responseText": "Token does not exist",
+    "successful": "yes",
+    "tokenValue": "5966584544780748",
+    "transactionReference": Object {},
+  },
+  "MerchantInfo": Object {
+    "merchantID": "XYZ0010",
+  },
+  "MessageInfo": Object {
+    "apiVersion": "xml-4.2",
+    "messageID": "123456789",
+    "messageTimestamp": StringMatching /\\^\\\\d\\{4\\}-\\[01\\]\\\\d-\\[0-3\\]\\\\dT\\[0-2\\]\\\\d:\\[0-5\\]\\\\d:\\[0-5\\]\\\\d\\\\\\.\\\\d\\+\\(\\[\\+-\\]\\[0-2\\]\\\\d:\\[0-5\\]\\\\d\\|Z\\)\\$/u,
+  },
+  "RequestType": "Payment",
+  "Status": Object {
+    "statusCode": "0",
+    "statusDescription": "Normal",
+  },
+}
+`;
+
+exports[`lookupToken 1`] = `
+Object {
+  "Data": Object {
+    "CreditCardInfo": Object {
+      "cardDescription": "Visa",
+      "cardType": "6",
+      "expiryDate": "09/22",
+      "pan": "454977XXXXXXX913",
+    },
+    "amount": "100",
+    "responseCode": "00",
+    "responseText": "Successful",
+    "successful": "yes",
+    "tokenValue": StringMatching /7151059647617577/,
+    "transactionReference": Object {},
+  },
+  "MerchantInfo": Object {
+    "merchantID": "XYZ0010",
+  },
+  "MessageInfo": Object {
+    "apiVersion": "xml-4.2",
+    "messageID": "123456789",
+    "messageTimestamp": StringMatching /\\^\\\\d\\{4\\}-\\[01\\]\\\\d-\\[0-3\\]\\\\dT\\[0-2\\]\\\\d:\\[0-5\\]\\\\d:\\[0-5\\]\\\\d\\\\\\.\\\\d\\+\\(\\[\\+-\\]\\[0-2\\]\\\\d:\\[0-5\\]\\\\d\\|Z\\)\\$/u,
+  },
+  "RequestType": "Payment",
+  "Status": Object {
+    "statusCode": "0",
+    "statusDescription": "Normal",
+  },
+}
+`;
+
+exports[`triggerPayment - failure 1`] = `
+Object {
+  "Data": Object {
+    "CreditCardInfo": Object {
+      "cardDescription": "Master Card",
+      "cardType": "5",
+      "expiryDate": "12/23",
+      "pan": "555555...444",
+    },
+    "actionType": "trigger",
+    "amount": "105",
+    "crn": "testTokenId180703",
+    "currency": "AUD",
+    "periodicType": "8",
+    "responseCode": "05",
+    "responseText": "Do Not Honour",
+    "settlementDate": StringMatching /\\^\\\\d\\{8\\}\\$/,
+    "successful": "no",
+    "transactionReference": "test transaction - node-nab-api",
+    "txnID": StringMatching /\\^\\\\d\\+\\$/,
+  },
+  "MerchantInfo": Object {
+    "merchantID": "XYZ0010",
+  },
+  "MessageInfo": Object {
+    "apiVersion": "spxml-3.0",
+    "messageID": "123456789",
+    "messageTimestamp": StringMatching /\\^\\\\d\\{4\\}-\\[01\\]\\\\d-\\[0-3\\]\\\\dT\\[0-2\\]\\\\d:\\[0-5\\]\\\\d:\\[0-5\\]\\\\d\\\\\\.\\\\d\\+\\(\\[\\+-\\]\\[0-2\\]\\\\d:\\[0-5\\]\\\\d\\|Z\\)\\$/u,
+  },
+  "RequestType": "Periodic",
+  "Status": Object {
+    "statusCode": "0",
+    "statusDescription": "Normal",
+  },
+  "isApproved": false,
+}
+`;
+
+exports[`triggerPayment - success 1`] = `
+Object {
+  "Data": Object {
+    "CreditCardInfo": Object {
+      "cardDescription": "Master Card",
+      "cardType": "5",
+      "expiryDate": "12/23",
+      "pan": "555555...444",
+    },
+    "actionType": "trigger",
+    "amount": "100",
+    "crn": "testTokenId180703",
+    "currency": "AUD",
+    "periodicType": "8",
+    "responseCode": "00",
+    "responseText": "Approved",
+    "settlementDate": StringMatching /\\^\\\\d\\{8\\}\\$/,
+    "successful": "yes",
+    "transactionReference": "test transaction - node-nab-api",
+    "txnID": StringMatching /\\^\\\\d\\+\\$/,
+  },
+  "MerchantInfo": Object {
+    "merchantID": "XYZ0010",
+  },
+  "MessageInfo": Object {
+    "apiVersion": "spxml-3.0",
+    "messageID": "123456789",
+    "messageTimestamp": StringMatching /\\^\\\\d\\{4\\}-\\[01\\]\\\\d-\\[0-3\\]\\\\dT\\[0-2\\]\\\\d:\\[0-5\\]\\\\d:\\[0-5\\]\\\\d\\\\\\.\\\\d\\+\\(\\[\\+-\\]\\[0-2\\]\\\\d:\\[0-5\\]\\\\d\\|Z\\)\\$/u,
+  },
+  "RequestType": "Periodic",
+  "Status": Object {
+    "statusCode": "0",
+    "statusDescription": "Normal",
+  },
+  "isApproved": true,
+}
+`;

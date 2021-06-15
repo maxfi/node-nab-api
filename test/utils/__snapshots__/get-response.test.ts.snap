@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getResponse 1`] = `
+Object {
+  "NABTransactMessage": Object {
+    "MerchantInfo": Object {
+      "merchantID": "XYZ00",
+    },
+    "MessageInfo": Object {
+      "apiVersion": "spxml-3.0",
+      "messageID": "8af793f9af34bea0ecd7eff711c9d3",
+      "messageTimestamp": "20140710115921873000+600",
+    },
+    "RequestType": "addToken",
+    "Status": Object {
+      "statusCode": "0",
+      "statusDescription": "Normal",
+    },
+    "Token": Object {
+      "TokenList": Object {
+        "TokenItem": Object {
+          "CreditCardInfo": Object {
+            "cardDescription": "Visa",
+            "cardType": "6",
+            "expiryDate": "11/15",
+            "pan": "444433XXXXXXX111",
+          },
+          "_attributes": Object {
+            "ID": "1",
+          },
+          "amount": "100",
+          "responseCode": "00",
+          "responseText": "Successful",
+          "successful": "yes",
+          "tokenValue": "1234123412341234",
+          "transactionReference": Object {},
+        },
+        "_attributes": Object {
+          "count": "1",
+        },
+      },
+    },
+  },
+  "_declaration": Object {
+    "_attributes": Object {
+      "encoding": "UTF-8",
+      "version": "1.0",
+    },
+  },
+}
+`;

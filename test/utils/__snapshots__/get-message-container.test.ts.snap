@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getMessageContainer 1`] = `
+Object {
+  "NABTransactMessage": Object {
+    "MerchantInfo": Object {
+      "merchantID": Object {
+        "_text": "XYZ00",
+      },
+      "password": Object {
+        "_text": "abcd1234",
+      },
+    },
+    "MessageInfo": Object {
+      "apiVersion": Object {
+        "_text": "spxml-3.0",
+      },
+      "messageID": Object {
+        "_text": "8af793f9af34bea0ecd7eff711c9d3",
+      },
+      "messageTimestamp": Object {
+        "_text": StringMatching /\\^\\\\d\\{4\\}-\\[01\\]\\\\d-\\[0-3\\]\\\\dT\\[0-2\\]\\\\d:\\[0-5\\]\\\\d:\\[0-5\\]\\\\d\\\\\\.\\\\d\\+\\(\\[\\+-\\]\\[0-2\\]\\\\d:\\[0-5\\]\\\\d\\|Z\\)\\$/u,
+      },
+      "timeoutValue": Object {
+        "_text": "60",
+      },
+    },
+    "RequestType": Object {
+      "_text": "addToken",
+    },
+    "Token": Object {
+      "TokenList": Object {
+        "TokenItem": Object {
+          "_attributes": Object {
+            "ID": "1",
+          },
+          "cardNumber": Object {
+            "_text": "4444333322221111",
+          },
+          "expiryDate": Object {
+            "_text": "11/15",
+          },
+          "tokenType": Object {
+            "_text": "1",
+          },
+        },
+        "_attributes": Object {
+          "count": "1",
+        },
+      },
+    },
+  },
+  "_declaration": Object {
+    "_attributes": Object {
+      "encoding": "UTF-8",
+      "version": "1.0",
+    },
+  },
+}
+`;
+
+exports[`getMessageContainer should create the correct object to be parsed to XML 1`] = `
+"<?xml version=\\"1.0\\" encoding=\\"UTF-8\\"?>
+<NABTransactMessage>
+    <MessageInfo>
+        <messageID>8af793f9af34bea0ecd7eff711c9d3</messageID>
+        
+        <timeoutValue>60</timeoutValue>
+        <apiVersion>spxml-3.0</apiVersion>
+    </MessageInfo>
+    <MerchantInfo>
+        <merchantID>XYZ00</merchantID>
+        <password>abcd1234</password>
+    </MerchantInfo>
+    <RequestType>addToken</RequestType>
+    <Token>
+        <TokenList count=\\"1\\">
+            <TokenItem ID=\\"1\\">
+                <cardNumber>4444333322221111</cardNumber>
+                <expiryDate>11/15</expiryDate>
+                <tokenType>1</tokenType>
+            </TokenItem>
+        </TokenList>
+    </Token>
+</NABTransactMessage>"
+`;

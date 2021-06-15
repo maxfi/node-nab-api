@@ -1,76 +1,65 @@
 {
-  "name": "node-nab-api",
-  "version": "0.2.0",
-  "description": "NAB payment gateway API wrapper for node.js",
-  "author": "Max",
-  "license": "UNLICENSED",
-  "repository": "maxfi/node-nab-api",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.es.js",
-  "jsnext:main": "dist/index.es.js",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "files": [
-    "dist/"
+    "dist",
+    "src"
   ],
   "engines": {
-    "node": ">=4"
+    "node": ">=10"
   },
   "scripts": {
-    "lint": "xo --fix",
-    "flow": "flow",
-    "test": "npm run lint && npm run flow && BABEL_ENV=development ava",
-    "build": "BABEL_ENV=production rollup -c",
-    "precommit": "lint-staged && npm run build && git add dist/*"
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "docs:generate": "npx typedoc src/index.ts",
+    "docs:serve": "yarn run docs:generate && npx serve docs",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "publish": "npx np"
   },
-  "xo": {
-    "prettier": true,
-    "semicolon": false,
-    "space": 2
+  "peerDependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
   },
   "prettier": {
-    "bracketSpacing": true,
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
     "trailingComma": "es5"
   },
-  "lint-staged": {
-    "{src,test}/**/*.js": [
-      "npm run lint",
-      "git add"
-    ]
-  },
-  "ava": {
-    "files": [
-      "test/**/*.js"
-    ],
-    "source": [
-      "src/**/*.js"
-    ],
-    "require": [
-      "@babel/register"
-    ]
+  "name": "node-nab-api",
+  "author": "Max",
+  "module": "dist/node-nab-api.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/node-nab-api.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/node-nab-api.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^4.12.0",
+    "@types/node-fetch": "^2.5.10",
+    "husky": "^6.0.0",
+    "size-limit": "^4.12.0",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.0",
+    "typescript": "^4.3.2"
   },
   "dependencies": {
-    "@babel/runtime": "7.0.0-beta.51",
-    "is-plain-object": "^2.0.4",
-    "moment": "^2.22.2",
-    "node-fetch": "^2.1.2",
-    "xml-js": "^1.5.2"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.0.0-beta.51",
-    "@babel/core": "^7.0.0-beta.51",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.51",
-    "@babel/plugin-transform-runtime": "^7.0.0-beta.51",
-    "@babel/preset-env": "^7.0.0-beta.51",
-    "@babel/preset-flow": "^7.0.0-beta.51",
-    "@babel/register": "^7.0.0-beta.51",
-    "ava": "^0.25.0",
-    "eslint-config-prettier": "^2.8.0",
-    "flow-bin": "^0.75.0",
-    "husky": "^0.14.3",
-    "lint-staged": "^7.2.0",
-    "pify": "^3.0.0",
-    "prettier": "^1.13.7",
-    "rollup": "^0.62.0",
-    "rollup-plugin-babel": "^4.0.0-beta.7",
-    "xo": "^0.21.1"
+    "date-fns": "^2.22.1",
+    "is-plain-object": "^5.0.0",
+    "node-fetch": "^2.6.1",
+    "xml-js": "^1.6.11"
   }
 }
