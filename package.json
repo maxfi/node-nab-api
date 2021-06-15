@@ -40,11 +40,11 @@
   "size-limit": [
     {
       "path": "dist/node-nab-api.cjs.production.min.js",
-      "limit": "10 KB"
+      "limit": "40 KB"
     },
     {
       "path": "dist/node-nab-api.esm.js",
-      "limit": "10 KB"
+      "limit": "40 KB"
     }
   ],
   "devDependencies": {
